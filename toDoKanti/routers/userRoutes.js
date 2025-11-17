@@ -2,23 +2,15 @@ import { Router } from "express";
 import * as Users from "../data/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import auth from "../util/authentication.js";
+import authentication from "../util/authentication.js";
 const router = Router();
 
-router.get("/", auth, (_, res) => {
+router.get("/", authentication, (_, res) => {
   const users = Users.getUsers();
   res.json(users);
 });
 
-// router.get("/:id", (req, res) => {
-//   const user = Users.getUserById(+req.params.id);
-//   if (!user) {
-//     return res.status(404).json({ message: "User not found" });
-//   }
-//   res.json(user);
-// });
-
-router.get("/me", auth, (req, res) => {
+router.get("/me", authentication, (req, res) => {
   const user = Users.getUserById(+req.userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
@@ -38,7 +30,7 @@ router.post("/register", (req, res) => {
   res.json(user);
 });
 
-router.put("/:id", auth, (req, res) => {
+router.put("/:id", authentication, (req, res) => {
   const id = +req.params.id;
   let user = Users.getUserById(id);
   if (!user) {
@@ -55,7 +47,7 @@ router.put("/:id", auth, (req, res) => {
   res.json(user);
 });
 
-router.patch("/:id", auth, (req, res) => {
+router.patch("/:id", authentication, (req, res) => {
   const id = +req.params.id;
   let user = Users.getUserById(id);
   if (!user) {
@@ -77,7 +69,7 @@ router.patch("/:id", auth, (req, res) => {
   res.json(user);
 });
 
-router.delete("/:id", auth, (req, res) => {
+router.delete("/:id", authentication, (req, res) => {
   const user = Users.getUserById(+req.params.id);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
