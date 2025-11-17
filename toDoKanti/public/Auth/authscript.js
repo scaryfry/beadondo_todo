@@ -22,7 +22,7 @@ async function loginConfirm() {
         alert("Sikeres bejelentkezés!");
         document.getElementById("email-login").value = "";
         document.getElementById("password-login").value = "";
-        window.location.href = "../UI/dashboard.html";
+        window.location.href = "../UI/MainPage.html";
     }
   catch (error) {
     console.error("Hiba a bejelentkezés során:", error);
