@@ -17,3 +17,5 @@ export const saveTask = (user_id, title, description, status, deadline) => db.pr
 export const updateTask = (id, user_id, title, description, status, deadline) => db.prepare("UPDATE tasks SET user_id = ?, title = ?, description = ?, status = ?, deadline = ? WHERE id = ?").run(user_id, title, description, status, deadline, id)
 
 export const deleteTask = (id) => db.prepare("DELETE FROM tasks WHERE id = ?").run(id)
+
+export const getTasksByUserId = (user_id) => db.prepare("SELECT * FROM tasks WHERE user_id = ?").all(user_id);

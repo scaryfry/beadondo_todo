@@ -6,9 +6,12 @@ import authentication from "../util/authentication.js";
 const router = Router();
 
 router.get("/", authentication, (req, res) => {
-  const tasks = Task.getTasks();
-  res.json(tasks);
+    const userId = req.userId;
+    const tasks = Task.getTasksByUserId(userId);
+    res.json(tasks);
 });
+
+
 
 router.get("/:id", authentication, (req, res) => {
   const task = Task.getTaskById(+req.params.id);
@@ -48,6 +51,12 @@ router.delete("/:id", authentication, (req, res) => {
     }
   Task.deleteTask(id);
   res.status(204).send();
+});
+
+router.get("/:user_id", authentication, (req, res) => {
+  const user_id = +req.params.user_id;
+  const tasks = Task.getTasksByUserId(user_id);
+  res.json(tasks);
 });
 
 export default router;

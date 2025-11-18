@@ -97,5 +97,4 @@ router.post("/login", (req, res) => {
   });
   res.json(token);
 });
-
 export default router;
