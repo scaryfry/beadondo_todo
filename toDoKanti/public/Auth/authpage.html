@@ -10,23 +10,25 @@
     <form>
       <label for="email">Email:</label>
       <input type="email" id="email-login" placeholder="example@gmail.com" />
-      <label for="password">Password:</label>
+      <label for="name" id="name-label" style="display: none;">Név:</label>
+      <input type="hidden" id="name" placeholder="Írd be a neved" />
+      <label for="password">Jelszó:</label>
       <input
         type="password"
         id="password-login"
-        placeholder="Enter your password"
+        placeholder="Írd be a jelszavad"
       />
       <input
         type="hidden"
         id="password-register"
         value=""
-        placeholder="Enter a password"
+        placeholder="Írj be egy jelszót"
       />
       <input
         type="hidden"
         id="password-repeat"
         value=""
-        placeholder="Enter the password again"
+        placeholder="Írd be újra a jelszavad"
       />
       <div>
         <button type="button" onclick="loginConfirm()" id="login-button">

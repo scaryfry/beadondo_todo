@@ -3,14 +3,12 @@ import jwt from "jsonwebtoken";
 
 function auth(req, res, next) {
   try {
-    // Get authorization header
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
       return res.status(401).json({ message: "Unauthorized!" });
     }
 
-    // Expected format: "Bearer <token>"
     const parts = authHeader.split(" ");
 
     if (parts.length !== 2 || parts[0] !== "Bearer") {
@@ -19,10 +17,8 @@ function auth(req, res, next) {
 
     const tokenString = parts[1];
 
-    // Verify JWT
     const decoded = jwt.verify(tokenString, "secret_key");
 
-    // Check expiration manually (optional — jwt.verify already handles it)
     const now = Math.floor(Date.now() / 1000);
     if (decoded.exp < now) {
       return res.status(403).json({ message: "Access forbidden!" });

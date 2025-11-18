@@ -10,7 +10,10 @@ input[type="date"] {
 }
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  background: linear-gradient(135deg, #f0f4ff 0%, #e6f7ff 50%, #f7fbff 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   margin: 0;
 }
