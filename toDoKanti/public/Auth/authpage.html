@@ -1,55 +1,39 @@
 <!DOCTYPE html>
 <html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="authstyle.css" />
-    <title>Login Page</title>
-  </head>
-  <body>
-    <form>
-      <label for="email">Email:</label>
-      <input type="email" id="email-login" placeholder="example@gmail.com" />
-      <label for="name" id="name-label" style="display: none;">Név:</label>
-      <input type="hidden" id="name" placeholder="Írd be a neved" />
-      <label for="password">Jelszó:</label>
-      <input
-        type="password"
-        id="password-login"
-        placeholder="Írd be a jelszavad"
-      />
-      <input
-        type="hidden"
-        id="password-register"
-        value=""
-        placeholder="Írj be egy jelszót"
-      />
-      <input
-        type="hidden"
-        id="password-repeat"
-        value=""
-        placeholder="Írd be újra a jelszavad"
-      />
-      <div>
-        <button type="button" onclick="loginConfirm()" id="login-button">
-          Bejelentkezés
-        </button>
-        <button type="button" style="display: none" id="register-button">
-          Regisztráció
-        </button>
-        <button type="button" onclick="showRegisterPage()" id="register-page">
-          Még nincs fiókod?
-        </button>
-        <button
-          type="button"
-          style="display: none"
-          onclick="showLoginPage()"
-          id="login-page"
-        >
-          Már van fiókod?
-        </button>
-      </div>
-      <script src="authscript.js"></script>
-    </form>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="authstyle.css" />
+  <title>Login Page</title>
+</head>
+
+<body>
+  <form>
+    <label for="email">Email:</label>
+    <input type="email" id="email-login" placeholder="example@gmail.com" />
+    <label for="name" id="name-label" style="display: none;">Név:</label>
+    <input type="hidden" id="name" placeholder="Írd be a neved" />
+    <label for="password">Jelszó:</label>
+    <input type="password" id="password-login" placeholder="Írd be a jelszavad" />
+    <input type="hidden" id="password-register" value="" placeholder="Írj be egy jelszót" />
+    <input type="hidden" id="password-repeat" value="" placeholder="Írd be újra a jelszavad" />
+    <div>
+      <button type="button" onclick="loginConfirm()" id="login-button">
+        Bejelentkezés
+      </button>
+      <button type="button" style="display: none" id="register-button">
+        Regisztráció
+      </button>
+      <button type="button" onclick="showRegisterPage()" id="register-page">
+        Még nincs fiókod?
+      </button>
+      <button type="button" style="display: none" onclick="showLoginPage()" id="login-page">
+        Már van fiókod?
+      </button>
+    </div>
+    <script src="authscript.js"></script>
+  </form>
+</body>
+
 </html>

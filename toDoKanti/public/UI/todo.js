@@ -83,3 +83,50 @@ function logout() {
   sessionStorage.removeItem("token");
   window.location.href = "../Auth/authpage.html";
 }
+async function AddTask() {
+  const title = document.getElementById("titleInput").value;
+  const description = document.getElementById("descriptionInput").value;
+  const status = document.getElementById("statusInput").checked;
+  const deadline = document.getElementById("deadlineInput").value;
+  const token = sessionStorage.getItem("token");
+
+  if (!token) {
+    alert("Please log in to access your tasks.");
+    window.location.href = "../Auth/authpage.html";
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/tasks/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        status,
+        deadline
+      })
+    });
+
+    if (response.status === 401) {
+      alert("Session expired. Please log in again.");
+      window.location.href = "../Auth/authpage.html";
+      return;
+    }
+
+    if (response.ok) {
+      alert("Task added successfully.");
+      LoadTasks();
+    } else {
+      console.error("Failed to add task:", response.statusText);
+      alert("Failed to add task. Please try again.");
+    }
+
+  } catch (error) {
+    console.error("Error adding task:", error);
+    alert("Failed to add task. Please try again later.");
+  }
+}

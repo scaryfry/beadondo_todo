@@ -11,8 +11,6 @@ router.get("/", authentication, (req, res) => {
     res.json(tasks);
 });
 
-
-
 router.get("/:id", authentication, (req, res) => {
   const task = Task.getTaskById(+req.params.id);
   if (!task) {
@@ -22,27 +20,37 @@ router.get("/:id", authentication, (req, res) => {
 });
 
 router.post("/", authentication, (req, res) => {
-  const { user_id, title, description, status, deadline } = req.body;
-    if (!user_id || !title || !description || status === undefined || !deadline) {
+  const userId = req.userId;
+  const { title, description, status, deadline } = req.body;
+  console.log("REQUEST BODY:", req.body);
+
+  if (!title || !description || status === undefined || !deadline) {
     return res.status(400).json({ message: "Missing required data" });
-    }
-  const saved = Task.saveTask(user_id, title, description, status, deadline);
+  }
+  const saved = Task.saveTask(userId, title, description, status, deadline);
   const task = Task.getTaskById(saved.lastInsertRowid);
   res.json(task);
 });
+
 router.put("/:id", authentication, (req, res) => {
   const id = +req.params.id;
   let task = Task.getTaskById(id);
-    if (!task) {
+
+  if (!task) {
     return res.status(404).json({ message: "Task not found" });
-    }
-  const { user_id, title, description, status, deadline } = req.body;
-    if (!user_id || !title || !description || status === undefined || !deadline) {
+  }
+
+  const userId = req.userId;
+  const { title, description, status, deadline } = req.body;
+
+  if (!title || !description || status === undefined || !deadline) {
     return res.status(400).json({ message: "Missing required data" });
-    }
-  Task.updateTask(id, user_id, title, description, status, deadline);
+  }
+
+  Task.updateTask(id, userId, title, description, status, deadline);
   res.json(Task.getTaskById(id));
 });
+
 router.delete("/:id", authentication, (req, res) => {
   const id = +req.params.id;
   let task = Task.getTaskById(id);
