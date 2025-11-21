@@ -21,20 +21,19 @@ function auth(req, res, next) {
 
     const now = Math.floor(Date.now() / 1000);
     if (decoded.exp < now) {
-      return res.status(403).json({ message: "Access forbidden!" });
+      return res.status(403).json({ message: "Token expired!" });
     }
 
     const user = User.getUserById(decoded.id);
 
     if (!user) {
-      return res.status(403).json({ message: "Access denied!" });
+      return res.status(403).json({ message: "User no longer exists!" });
     }
 
     req.userId = user.id;
     req.userEmail = user.email;
 
     next();
-
   } catch (err) {
     console.log(err);
     return res.status(401).json({ message: "Unauthorized!" });
