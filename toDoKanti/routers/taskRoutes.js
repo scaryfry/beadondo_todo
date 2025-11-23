@@ -9,6 +9,12 @@ router.get("/", authentication, (req, res) => {
   res.json(tasks);
 });
 
+router.get("/search", authentication, (req, res) => {
+  const keyword = req.query.q || "";
+  const tasks = Task.searchTasks(req.userId, keyword);
+  res.json(tasks);
+});
+
 router.get("/:id", authentication, (req, res) => {
   const task = Task.getTaskById(+req.params.id);
   if (!task) return res.status(404).json({ message: "Task not found" });
@@ -60,12 +66,6 @@ router.delete("/:id", authentication, (req, res) => {
 
   Task.deleteTask(id);
   res.status(204).send();
-});
-
-router.get("/search", authentication, (req, res) => {
-  const keyword = req.query.q || "";
-  const tasks = Task.searchTasks(req.userId, keyword);
-  res.json(tasks);
 });
 
 export default router;

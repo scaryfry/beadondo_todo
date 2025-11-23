@@ -190,7 +190,11 @@ async function SaveTaskChanges() {
 async function searchTasks() {
   const query = document.getElementById('searchInput').value;
 
-  const response = await fetch(`http://localhost:3000/tasks/search/}`);
+  const response = await fetch(`http://localhost:3000/tasks/search?q=${encodeURIComponent(query)}`, {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`
+    }
+  });
   const tasks = await response.json();
 
   const tbody = document.getElementById('task-table-body');
