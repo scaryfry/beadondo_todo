@@ -53,6 +53,15 @@
           + Új feladat
         </button>
       </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          id="searchInput"
+          class="form-control"
+          placeholder="Keresés a teendők között..."
+          oninput="searchTasks()"
+        />
+      </div>
 
       <div class="card shadow border-0">
         <div class="card-body p-4">
@@ -63,6 +72,16 @@
                 <th>Leírás</th>
                 <th>Státusz</th>
                 <th>Határidő</th>
+                <th>
+                  Kategória
+                  <button
+                    onclick="AbcCategorySort()"
+                    id="categoryFilterBtn"
+                    class="btn btn-sm btn-outline-secondary ms-1"
+                  >
+                    <i class="bi bi-filter">Szűrés</i>
+                  </button>
+                </th>
                 <th class="text-center">Műveletek</th>
               </tr>
             </thead>
@@ -112,6 +131,17 @@
               />
               <label class="form-check-label">Kész?</label>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Kategória</label>
+              <select id="categoryInput" class="form-select">
+                <option value="">Válassz kategóriát</option>
+                <option value="Munka">Munka</option>
+                <option value="Iskola">Iskola</option>
+                <option value="Vásárlás">Vásárlás</option>
+                <option value="Személyes">Személyes</option>
+                <option value="Egyéb">Egyéb</option>
+              </select>
+            </div>
           </div>
 
           <div class="modal-footer">
@@ -125,7 +155,6 @@
         </div>
       </div>
     </div>
-    <!-- Edit Task Modal -->
     <div class="modal fade" id="editTaskModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -140,7 +169,6 @@
 
           <div class="modal-body">
             <input type="hidden" id="editTaskId" />
-
             <div class="mb-3">
               <label class="form-label">Cím</label>
               <input type="text" id="editTitleInput" class="form-control" />
@@ -168,6 +196,16 @@
               />
               <label class="form-check-label">Kész?</label>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Kategória</label>
+              <select id="editCategoryInput" class="form-select">
+                <option value="Munka">Munka</option>
+                <option value="Iskola">Iskola</option>
+                <option value="Vásárlás">Vásárlás</option>
+                <option value="Személyes">Személyes</option>
+                <option value="Egyéb">Egyéb</option>
+              </select>
+            </div>
           </div>
 
           <div class="modal-footer">
@@ -184,5 +222,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="todo.js"></script>
+    <script></script>
   </body>
 </html>

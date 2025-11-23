@@ -13,8 +13,14 @@ async function loginConfirm() {
           },
           body: JSON.stringify({ email: email, password: password }),
         });
-        const token = await response.json();
+        const result = await response.json();
+        const token = result.token;
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(result.user));
+        if(!response.ok){
+          alert(result.message);
+          return;
+        }
         alert("Sikeres bejelentkezés!");
         document.getElementById("email-login").value = "";
         document.getElementById("password-login").value = "";

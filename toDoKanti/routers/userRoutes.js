@@ -80,21 +80,20 @@
     res.json({ message: "User delete success" });
   });
 
-  router.post("/login", (req, res) => {
+  router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
+    
     const user = Users.getUserByEmail(email);
     if (!user) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
-    if (!bcrypt.compareSync(password, user.password)) {
-      return res.status(401).json({ message: "Invalid credentials" });
+    const passwordValid = await bcrypt.compare(password, user.password);
+    if (!passwordValid) {
+      return res.status(401).json({ message: "Invalid email or password" });
     }
     const token = jwt.sign({ id: user.id, email: user.email }, "secret_key", {
       expiresIn: "30m",
     });
-    res.json(token);
+    res.json({ token, user });
   });
   export default router;

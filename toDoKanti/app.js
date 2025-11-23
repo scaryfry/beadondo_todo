@@ -12,6 +12,7 @@ app.use(cors());
 app.use("/tasks", taskRoutes);
 app.use("/users", userRoutes);
 
+
 app.listen(PORT, () => {
   console.log(`Server runs on : ${PORT}`);
 });
