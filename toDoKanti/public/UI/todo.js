@@ -28,10 +28,8 @@ async function LoadTasks() {
                 <td>${task.status ? "Completed" : "Pending"}</td>
                 <td>${new Date(task.deadline).toLocaleDateString()}</td>
                 <td>
-                    <button onclick="NavigateToEditTask('${
-                      task.id
-                    }')">Edit</button>
-                    <button onclick="deleteTask('${task.id}')">Delete</button>
+                <button class="btn btn-warning btn-sm me-2" onclick='OpenEditModal(${JSON.stringify(task)})'>Módosítás</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTask('${task.id}')">Törlés</button>
                 </td>
             `;
       taskList.appendChild(row);
@@ -118,8 +116,10 @@ async function AddTask() {
     }
 
     if (response.ok) {
-      alert("Task added successfully.");
-      LoadTasks();
+    const modalEl = document.getElementById("addTaskModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide();
+    LoadTasks();
     } else {
       console.error("Failed to add task:", response.statusText);
       alert("Failed to add task. Please try again.");
@@ -128,5 +128,59 @@ async function AddTask() {
   } catch (error) {
     console.error("Error adding task:", error);
     alert("Failed to add task. Please try again later.");
+  }
+  
+}
+function OpenEditModal(task) {
+  document.getElementById("editTaskId").value = task.id;
+  document.getElementById("editTitleInput").value = task.title;
+  document.getElementById("editDescriptionInput").value = task.description;
+  document.getElementById("editDeadlineInput").value = task.deadline?.split("T")[0] || "";
+  document.getElementById("editStatusInput").checked = task.status;
+
+  const modalEl = document.getElementById("editTaskModal");
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+}
+
+async function SaveTaskChanges() {
+  const id = document.getElementById("editTaskId").value;
+  const title = document.getElementById("editTitleInput").value;
+  const description = document.getElementById("editDescriptionInput").value;
+  const status = document.getElementById("editStatusInput").checked;
+  const deadline = document.getElementById("editDeadlineInput").value;
+
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    alert("Please log in.");
+    window.location.href = "../Auth/authpage.html";
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ title, description, status, deadline })
+    });
+
+    if (!response.ok) {
+      alert("Sikertelen módosítás.");
+      return;
+    }
+
+    const modalEl = document.getElementById("editTaskModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide();
+
+    alert("Feladat módosítva.");
+    LoadTasks();
+
+  } catch (e) {
+    console.error("Error updating task:", e);
+    alert("Hiba történt.");
   }
 }
