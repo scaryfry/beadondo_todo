@@ -8,6 +8,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <title>ToDo</title>
   </head>
 
@@ -68,21 +72,28 @@
           <table class="table table-hover align-middle">
             <thead class="table-primary">
               <tr>
+                <th>Prioritás</th>
                 <th>Cím</th>
                 <th>Leírás</th>
                 <th>Státusz</th>
                 <th>Határidő</th>
-                <th>
-                  Kategória
+                <th>Kategória</th>
+                <th class="text-center">
+                  Műveletek
+                  <button
+                    class="btn btn-sm btn-outline-secondary"
+                    onclick="sortByPriority()"
+                  >
+                    <i class="bi bi-sort-up">Prioritás</i>
+                  </button>
                   <button
                     onclick="AbcCategorySort()"
                     id="categoryFilterBtn"
                     class="btn btn-sm btn-outline-secondary ms-1"
                   >
-                    <i class="bi bi-filter">Szűrés</i>
+                    <i class="bi bi-filter">Abc</i>
                   </button>
                 </th>
-                <th class="text-center">Műveletek</th>
               </tr>
             </thead>
             <tbody id="task-table-body"></tbody>
@@ -115,6 +126,7 @@
                 id="descriptionInput"
                 class="form-control"
                 rows="3"
+                maxlength="25"
               ></textarea>
             </div>
 
@@ -130,6 +142,15 @@
                 id="statusInput"
               />
               <label class="form-check-label">Kész?</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Prioritás</label>
+              <select id="priorityInput" class="form-select">
+                <option value="">Válassz prioritást</option>
+                <option value="1">Alacsony</option>
+                <option value="2">Közepes</option>
+                <option value="3">Magas</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Kategória</label>
@@ -195,6 +216,14 @@
                 id="editStatusInput"
               />
               <label class="form-check-label">Kész?</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Prioritás</label>
+              <select id="editPriorityInput" class="form-select">
+                <option value="1">Alacsony</option>
+                <option value="2">Közepes</option>
+                <option value="3">Magas</option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Kategória</label>

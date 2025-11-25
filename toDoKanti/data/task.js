@@ -1,36 +1,36 @@
 import db from "./db.js";
 
-// Create table if not exists
 db.prepare(`
   CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
-    title STRING,
-    description STRING,
-    status BOOLEAN,
-    deadline DATE,
-    category STRING
+    title TEXT,
+    description TEXT,
+    status INTEGER,
+    deadline TEXT,
+    category TEXT,
+    priority INTEGER
   )
 `).run();
 
-// Existing functions
+
 export const getTasks = () => db.prepare("SELECT * FROM tasks").all();
 
 export const getTaskById = (id) => 
   db.prepare("SELECT * FROM tasks WHERE id = ?").get(id);
 
-export const saveTask = (user_id, title, description, status, deadline, category) => {
+export const saveTask = (user_id, title, description, status, deadline, category, priority, ) => {
   const statusInt = status ? 1 : 0; 
   return db
-    .prepare("INSERT INTO tasks (user_id, title, description, status, deadline, category) VALUES (?, ?, ?, ?, ?, ?)")
-    .run(user_id, title, description, statusInt, deadline, category);
+    .prepare("INSERT INTO tasks (user_id, title, description, status, deadline, category, priority) VALUES (?, ?, ?, ?, ?, ?, ?)")
+    .run(user_id, title, description, statusInt, deadline, category, priority);
 };
 
-export const updateTask = (id, user_id, title, description, status, deadline, category) => {
+export const updateTask = (id, user_id, title, description, status, deadline, category, priority) => {
   const statusInt = status ? 1 : 0;
   return db
-    .prepare("UPDATE tasks SET user_id = ?, title = ?, description = ?, status = ?, deadline = ?, category = ? WHERE id = ?")
-    .run(user_id, title, description, statusInt, deadline, category, id);
+    .prepare("UPDATE tasks SET user_id = ?, title = ?, description = ?, status = ?, deadline = ?, category = ?, priority = ? WHERE id = ?")
+    .run(user_id, title, description, statusInt, deadline, category, priority, id);
 };
 
 export const deleteTask = (id) =>
