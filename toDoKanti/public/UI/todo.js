@@ -252,21 +252,35 @@ async function searchTasks() {
   tbody.innerHTML = "";
 
   tasks.forEach((task) => {
+    const bgColor =
+      task.priority === 3
+        ? "red"
+        : task.priority === 2
+        ? "yellow"
+        : task.priority === 1
+        ? "green"
+        : "";
+    const prioritytext = 
+      task.priority === 3
+        ? "Magas"
+        : task.priority === 2
+        ? "Közepes"
+        : "Alacsony";
     tbody.innerHTML += `
-      <tr>
+      <tr style="background-color: ${bgColor}">
+        <td style="background-color: ${bgColor}">${prioritytext ?? "-"}</td>
         <td>${task.title}</td>
         <td>${task.description}</td>
-        <td>${task.status ? "Kész" : "Függőben"}</td>
-        <td>${task.deadline || "-"}</td>
+        <td>${task.status ? "Completed" : "Pending"}</td>
+        <td>${task.deadline ? new Date(task.deadline).toLocaleDateString() : "-"}</td>
         <td>${task.category}</td>
-        <td>${task.priority || "-"}</td>
-        <td class="text-center">
-          <button class="btn btn-warning btn-sm" onclick="editTask(${
+        <td>
+          <button class="btn btn-warning btn-sm me-2" onclick='OpenEditModal(${JSON.stringify(
+            task
+          )})'>Módosítás</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteTask('${
             task.id
-          })">Szerkesztés</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteTask(${
-            task.id
-          })">Törlés</button>
+          }')">Törlés</button>
         </td>
       </tr>
     `;

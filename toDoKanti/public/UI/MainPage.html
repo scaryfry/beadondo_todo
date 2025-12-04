@@ -62,7 +62,7 @@
           type="text"
           id="searchInput"
           class="form-control"
-          placeholder="Keresés a teendők között..."
+          placeholder="Keress cím, leírás vagy kategória alapján..."
           oninput="searchTasks()"
         />
       </div>
@@ -121,12 +121,12 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Leírás</label>
+              <label class="form-label" for="descriptionInput">Leírás</label>
               <textarea
-                id="descriptionInput"
-                class="form-control"
-                rows="3"
-                maxlength="25"
+              id="descriptionInput"
+              class="form-control"
+              rows="3"
+              maxlength="50"
               ></textarea>
             </div>
 

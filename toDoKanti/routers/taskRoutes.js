@@ -22,7 +22,6 @@ router.get("/:id", authentication, (req, res) => {
 });
 
 router.post("/", authentication, (req, res) => {
-  console.log("USER ID:", req.userId);
 
   const userId = req.userId;
   const { title, description, status, deadline, category, priority } = req.body;
@@ -53,6 +52,9 @@ router.put("/:id", authentication, (req, res) => {
 
   if (!title || !description || status === undefined || !deadline || !category || priority === undefined) {
     return res.status(400).json({ message: "Missing required data" });
+  }
+  if(deadline < new Date().toISOString()) {
+    return res.status(400).json({ message: "Deadline cannot be in the past" });
   }
 
   Task.updateTask(id, req.userId, title, description, status, deadline, category, priority);
