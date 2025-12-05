@@ -56,7 +56,7 @@ async function LoadTasks() {
         <td>
           <button class="btn btn-warning btn-sm me-2" onclick='OpenEditModal(${JSON.stringify(
             task
-          )})'>Módosítás</button>
+          )})'><img src="edit.png" alt="Szerkesztés" style="width: 16px; height: 16px;"></button>
           <button class="btn btn-danger btn-sm" onclick="deleteTask('${
             task.id
           }')"><img src="delete.png" alt="Törlés" style="width: 16px; height: 16px;"></button>
@@ -277,7 +277,7 @@ async function searchTasks() {
         <td>
           <button class="btn btn-warning btn-sm me-2" onclick='OpenEditModal(${JSON.stringify(
             task
-          )})'>Módosítás</button>
+          )})'><img src="edit.png" alt="Szerkesztés" style="width: 16px; height: 16px;"></button>
           <button class="btn btn-danger btn-sm" onclick="deleteTask('${
             task.id
           }')"><img src="delete.png" alt="Törlés" style="width: 16px; height: 16px;"></button>
