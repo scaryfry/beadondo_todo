@@ -27,7 +27,7 @@ async function LoadTasks() {
         task.priority === 3
           ? "red"
           : task.priority === 2
-          ? "yellow"
+          ? "blue"
           : task.priority === 1
           ? "green"
           : "";
@@ -46,23 +46,23 @@ async function LoadTasks() {
       if (bgColor) row.style.backgroundColor = bgColor;
 
       row.innerHTML = `
-    <td style="background-color: ${bgColor}">${prioritytext ?? "-"}</td>
-    <td>${task.title}</td>
-    <td>${task.description}</td>
-    <td>${task.status ? "Completed" : "Pending"}</td>
-    <td>${
-      task.deadline ? new Date(task.deadline).toLocaleDateString() : "-"
-    }</td>
-    <td>${task.category}</td>
-    <td>
-      <button class="btn btn-warning btn-sm me-2" onclick='OpenEditModal(${JSON.stringify(
-        task
-      )})'>Módosítás</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteTask('${
-        task.id
-      }')">Törlés</button>
-    </td>
-`;
+      <tr style="border: 2px solid ${bgColor}">
+        <td style="border: 2px solid ${bgColor}">${prioritytext ?? "-"}</td>
+        <td>${task.title}</td>
+        <td>${task.description}</td>
+        <td>${task.status ? "Completed" : "Pending"}</td>
+        <td>${task.deadline ? new Date(task.deadline).toLocaleDateString() : "-"}</td>
+        <td>${task.category}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" onclick='OpenEditModal(${JSON.stringify(
+            task
+          )})'>Módosítás</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteTask('${
+            task.id
+          }')"><img src="delete.png" alt="Törlés" style="width: 16px; height: 16px;"></button>
+        </td>
+      </tr>
+    `;
       taskList.appendChild(row);
     });
   } catch (error) {
@@ -256,7 +256,7 @@ async function searchTasks() {
       task.priority === 3
         ? "red"
         : task.priority === 2
-        ? "yellow"
+        ? "blue"
         : task.priority === 1
         ? "green"
         : "";
@@ -267,8 +267,8 @@ async function searchTasks() {
         ? "Közepes"
         : "Alacsony";
     tbody.innerHTML += `
-      <tr style="background-color: ${bgColor}">
-        <td style="background-color: ${bgColor}">${prioritytext ?? "-"}</td>
+      <tr">
+        <td style="border: 2px solid ${bgColor}">${prioritytext ?? "-"}</td>
         <td>${task.title}</td>
         <td>${task.description}</td>
         <td>${task.status ? "Completed" : "Pending"}</td>
@@ -280,7 +280,7 @@ async function searchTasks() {
           )})'>Módosítás</button>
           <button class="btn btn-danger btn-sm" onclick="deleteTask('${
             task.id
-          }')">Törlés</button>
+          }')"><img src="delete.png" alt="Törlés" style="width: 16px; height: 16px;"></button>
         </td>
       </tr>
     `;
